@@ -60,6 +60,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const sanitizeInput = (input) => {
+  const sanitizedInput = input.replace(/[^a-zA-Z0-9 ]/g, '');
+  return sanitizedInput;
+}
+
 function HomePage() {
   const [scriptValue, setScriptValue] = useState('');
   const [POSTS, setddbposts] = useState([]);
@@ -67,8 +72,9 @@ function HomePage() {
   let notFoundValue = false
 
   const handleChange = (event) => {
-    setScriptValue(event.target.value);
-    setSearchTerm(event.target.value);
+    const sanitizedValue = sanitizeInput(event.target.value);
+    setScriptValue(sanitizedValue);
+    setSearchTerm(sanitizedValue);
   };
 
   useEffect(() => {
